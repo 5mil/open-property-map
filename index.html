@@ -105,7 +105,7 @@
                         <div class="flex items-baseline justify-between">
                             <div>
                                 <div class="section-header text-slate-500 tracking-wider">Properties</div>
-                                <div id="stat-total" class="text-4xl font-semibold tabular-nums tracking-tighter text-slate-900 mt-0.5">12</div>
+                                <div id="stat-total" class="text-4xl font-semibold tabular-nums tracking-tighter text-slate-900 mt-0.5">0</div>
                             </div>
                             <div class="text-teal-600">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -119,7 +119,7 @@
                         <div class="flex items-baseline justify-between">
                             <div>
                                 <div class="section-header text-slate-500 tracking-wider">Taxes Owed</div>
-                                <div id="stat-owed" class="text-4xl font-semibold tabular-nums tracking-tighter text-rose-600 mt-0.5">$128.4k</div>
+                                <div id="stat-owed" class="text-4xl font-semibold tabular-nums tracking-tighter text-rose-600 mt-0.5">$0</div>
                             </div>
                             <div class="text-rose-500">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -132,15 +132,15 @@
                 <div class="grid grid-cols-3 gap-2 mt-3 text-center">
                     <div class="bg-emerald-50 border border-emerald-100 rounded-2xl py-2 px-3">
                         <div class="text-emerald-700 text-xs font-semibold tracking-wider">CURRENT</div>
-                        <div id="stat-current" class="font-mono text-xl font-semibold text-emerald-800 tabular-nums">7</div>
+                        <div id="stat-current" class="font-mono text-xl font-semibold text-emerald-800 tabular-nums">0</div>
                     </div>
                     <div class="bg-amber-50 border border-amber-100 rounded-2xl py-2 px-3">
                         <div class="text-amber-700 text-xs font-semibold tracking-wider">DELINQUENT</div>
-                        <div id="stat-delinquent" class="font-mono text-xl font-semibold text-amber-800 tabular-nums">3</div>
+                        <div id="stat-delinquent" class="font-mono text-xl font-semibold text-amber-800 tabular-nums">0</div>
                     </div>
                     <div class="bg-rose-50 border border-rose-100 rounded-2xl py-2 px-3">
                         <div class="text-rose-700 text-xs font-semibold tracking-wider">AUCTION</div>
-                        <div id="stat-auction" class="font-mono text-xl font-semibold text-rose-800 tabular-nums">2</div>
+                        <div id="stat-auction" class="font-mono text-xl font-semibold text-rose-800 tabular-nums">0</div>
                     </div>
                 </div>
             </div>
@@ -167,7 +167,7 @@
             <div class="flex-1 overflow-y-auto px-2 py-2 bg-slate-50" id="property-list"></div>
             
             <div class="px-5 py-3 border-t bg-white text-[10px] text-slate-500 flex items-center justify-between">
-                <div><span id="list-count">Showing 12 of 12</span></div>
+                <div><span id="list-count">0 properties</span></div>
                 <button onclick="showCustomizeInfo()" class="text-teal-700 hover:text-teal-800 font-medium flex items-center gap-1 text-[10px]">How to use real data <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7-7 7" /></svg></button>
             </div>
         </div>
@@ -180,7 +180,9 @@
                 <div class="flex items-center gap-x-1.5"><div class="w-2.5 h-2.5 rounded-full bg-amber-500"></div><span class="font-medium text-amber-700 text-[10px]">Delinquent</span></div>
                 <div class="flex items-center gap-x-1.5"><div class="w-2.5 h-2.5 rounded-full bg-rose-500"></div><span class="font-medium text-rose-700 text-[10px]">Auction</span></div>
             </div>
-            <div class="absolute bottom-4 right-4 z-[450] bg-white/90 text-[10px] px-3 py-1.5 rounded-2xl border border-slate-200 shadow-sm map-overlay flex items-center gap-x-2"><span class="font-mono text-slate-500">Demo data • Onondaga County, NY • Location search: nationwide</span></div>
+            <div class="absolute bottom-4 right-4 z-[450] bg-white/90 text-[10px] px-3 py-1.5 rounded-2xl border border-slate-200 shadow-sm map-overlay flex items-center gap-x-2">
+                <span class="font-mono text-slate-500">Load your own data • Location search: nationwide</span>
+            </div>
         </div>
     </div>
 
@@ -234,28 +236,26 @@
     <script>
         function initTailwind() { document.documentElement.style.setProperty('--accent', '#0f766e'); }
         
-        let properties = [ { "id": "ES-001", "parcel_id": "035.-01-23.1", "address": "312 Maple Street, East Syracuse, NY 13057", "lat": 43.0628, "lng": -76.0812, "owner": "Maria Gonzalez & Family", "property_type": "Single Family", "assessed_value": 198500, "annual_tax": 5120, "taxes_owed": 0, "status": "Current", "last_payment": "2026-01-10", "auction_date": null, "notes": "Paid current year taxes in full. Clean title." }, { "id": "ES-002", "parcel_id": "035.-02-08.0", "address": "87 Lincoln Avenue, East Syracuse, NY 13057", "lat": 43.0671, "lng": -76.0749, "owner": "Thompson Family Trust", "property_type": "Single Family", "assessed_value": 267000, "annual_tax": 6890, "taxes_owed": 0, "status": "Current", "last_payment": "2025-12-28", "auction_date": null, "notes": "Owner occupied. Recent roof replacement noted in assessment." }, { "id": "ES-003", "parcel_id": "036.-14-15.2", "address": "451 Oakridge Drive, Syracuse, NY 13203", "lat": 43.0559, "lng": -76.0923, "owner": "Elena Rodriguez", "property_type": "Multi-Family", "assessed_value": 385000, "annual_tax": 12450, "taxes_owed": 12450, "status": "Delinquent", "last_payment": "2025-03-15", "auction_date": null, "notes": "Partial payment made in Q1 2025. Payment plan under review." }, { "id": "ES-004", "parcel_id": "034.-22-03.0", "address": "1200 James Street, Syracuse, NY 13203", "lat": 43.0492, "lng": -76.1341, "owner": "Marcus J. Thompson LLC", "property_type": "Commercial", "assessed_value": 920000, "annual_tax": 28750, "taxes_owed": 0, "status": "Current", "last_payment": "2026-02-01", "auction_date": null, "notes": "Retail strip center. Taxes paid via escrow." }, { "id": "ES-005", "parcel_id": "035.-07-41.0", "address": "19 Beechwood Lane, East Syracuse, NY 13057", "lat": 43.0714, "lng": -76.0698, "owner": "The Patel Family", "property_type": "Single Family", "assessed_value": 154000, "annual_tax": 3980, "taxes_owed": 7950, "status": "Delinquent", "last_payment": "2025-07-22", "auction_date": null, "notes": "Two years delinquent. Owner has been contacted multiple times." }, { "id": "ES-006", "parcel_id": "037.-19-02.3", "address": "7825 Old Liverpool Road, Liverpool, NY 13088", "lat": 43.0982, "lng": -76.1754, "owner": "Oakridge Holdings Inc.", "property_type": "Commercial", "assessed_value": 1450000, "annual_tax": 41200, "taxes_owed": 0, "status": "Current", "last_payment": "2025-11-30", "auction_date": null, "notes": "Large warehouse facility. Corporate owned." }, { "id": "ES-007", "parcel_id": "035.-03-19.1", "address": "204 Washington Boulevard, East Syracuse, NY 13057", "lat": 43.0645, "lng": -76.0778, "owner": "Robert & Linda Hayes", "property_type": "Single Family", "assessed_value": 221000, "annual_tax": 5710, "taxes_owed": 11420, "status": "Auction", "last_payment": "2024-09-05", "auction_date": "2026-08-22", "notes": "Tax foreclosure auction scheduled. High interest from investors." }, { "id": "ES-008", "parcel_id": "036.-08-27.0", "address": "55 Erie Boulevard East, Syracuse, NY 13202", "lat": 43.0468, "lng": -76.1487, "owner": "Downtown Properties Group", "property_type": "Commercial", "assessed_value": 675000, "annual_tax": 18900, "taxes_owed": 0, "status": "Current", "last_payment": "2026-01-25", "auction_date": null, "notes": "Mixed-use building. Current on all obligations." }, { "id": "ES-009", "parcel_id": "035.-11-06.2", "address": "638 Kirkville Road, East Syracuse, NY 13057", "lat": 43.0587, "lng": -76.0634, "owner": "Sandra K. Miller", "property_type": "Single Family", "assessed_value": 172500, "annual_tax": 4450, "taxes_owed": 4450, "status": "Delinquent", "last_payment": "2025-10-11", "auction_date": null, "notes": "Senior citizen owner. Payment plan application pending." }, { "id": "ES-010", "parcel_id": "034.-15-12.0", "address": "15-21 South Salina Street, Syracuse, NY 13202", "lat": 43.0431, "lng": -76.1529, "owner": "Salina Street Holdings LLC", "property_type": "Multi-Family", "assessed_value": 510000, "annual_tax": 15680, "taxes_owed": 0, "status": "Current", "last_payment": "2025-12-15", "auction_date": null, "notes": "4-unit apartment building. Well maintained." }, { "id": "ES-011", "parcel_id": "035.-09-33.1", "address": "92 Highland Avenue, East Syracuse, NY 13057", "lat": 43.0699, "lng": -76.0856, "owner": "William J. Foster", "property_type": "Single Family", "assessed_value": 189000, "annual_tax": 4880, "taxes_owed": 19520, "status": "Auction", "last_payment": "2024-02-28", "auction_date": "2026-09-12", "notes": "Multiple years of delinquency. Property has code violations." }, { "id": "ES-012", "parcel_id": "036.-21-04.0", "address": "4100 New Court Avenue, Syracuse, NY 13206", "lat": 43.0523, "lng": -76.1087, "owner": "New Court Industrial Park LLC", "property_type": "Vacant Land", "assessed_value": 85000, "annual_tax": 2190, "taxes_owed": 0, "status": "Current", "last_payment": "2026-02-20", "auction_date": null, "notes": "Vacant industrial lot. Currently listed for sale." } ];
+        // Properties start empty. Load your own real data for any area via "Edit Data" or URL.
+        // Search by address/ZIP works nationwide. Nearby properties will populate from your loaded data.
+        let properties = [];
         
         let map; let markers = {}; let currentFilter = 'all'; let currentSearchTerm = ''; let activePropertyId = null; let searchMarker = null;
         
-        function init() { initTailwind(); initMap(); createMarkers(); updateStats(); renderPropertyList(properties); applyFilters();
-            const searchInput = document.getElementById('search-input');
-            searchInput.addEventListener('keydown', function(e) { if (e.key === 'Escape') { this.value = ''; currentSearchTerm = ''; applyFilters(); } });
-            map.on('click', function() { clearActiveCard(); });
-            console.log('%c[OpenPropMap] Single-file open source property tax map initialized successfully.', 'color:#64748b');
-        }
+        function init() { initTailwind(); initMap(); createMarkers(); updateStats(); renderPropertyList([]); }
         
-        function initMap() { map = L.map('map', { zoomControl: true, attributionControl: true }).setView([43.062, -76.085], 13);
+        function initMap() { map = L.map('map', { zoomControl: true, attributionControl: true }).setView([40, -100], 4); // US center for empty start
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' }).addTo(map); }
         
         function createMarkers(filteredProps = null) { Object.values(markers).forEach(marker => { if (map.hasLayer(marker)) map.removeLayer(marker); }); markers = {};
             const dataToUse = filteredProps || properties;
+            if (dataToUse.length === 0) return;
             dataToUse.forEach(prop => { const color = getStatusColor(prop.status); const isAuction = prop.status === 'Auction';
                 const marker = L.circleMarker([prop.lat, prop.lng], { radius: isAuction ? 9 : 7, fillColor: color, color: '#fff', weight: isAuction ? 2.5 : 1.5, opacity: 1, fillOpacity: 0.95 });
                 marker.bindPopup(createPopupContent(prop), { maxWidth: 280, minWidth: 240, className: 'property-popup' });
                 marker.on('click', function() { showPropertyDetails(prop.id); highlightListCard(prop.id); });
                 markers[prop.id] = marker; marker.addTo(map); });
-            if (!filteredProps || filteredProps.length === properties.length) { setTimeout(() => { zoomToAll(false); }, 350); } }
+            if (dataToUse.length > 0) { setTimeout(() => { zoomToAll(false); }, 350); } }
         
         function getStatusColor(status) { if (status === 'Current') return '#10b981'; if (status === 'Delinquent') return '#f59e0b'; if (status === 'Auction') return '#e11d48'; return '#64748b'; }
         
@@ -267,7 +267,7 @@
             document.getElementById('stat-total').textContent = total; document.getElementById('stat-owed').innerHTML = '$' + (totalOwed / 1000).toFixed(1) + 'k'; document.getElementById('stat-current').textContent = currentCount; document.getElementById('stat-delinquent').textContent = delinquentCount; document.getElementById('stat-auction').textContent = auctionCount; }
         
         function renderPropertyList(filteredProps) { const container = document.getElementById('property-list'); container.innerHTML = '';
-            if (!filteredProps || filteredProps.length === 0) { container.innerHTML = `<div class="px-5 py-8 text-center text-sm text-slate-500">No properties match your current filters.<br><button onclick="resetFilters()" class="mt-3 text-teal-600 text-xs underline">Clear filters</button></div>`; document.getElementById('list-count').textContent = `Showing 0 of ${properties.length}`; return; }
+            if (!filteredProps || filteredProps.length === 0) { container.innerHTML = `<div class="px-5 py-12 text-center"><div class="text-slate-400 mb-3 text-6xl">🗺️</div><div class="font-medium text-slate-600">No properties loaded yet</div><div class="text-xs text-slate-500 mt-2 max-w-[260px] mx-auto">Search by address/ZIP anywhere. Then use "Edit Data" to load real parcel + tax data for the area.</div><button onclick="editData()" class="mt-6 px-5 py-2 text-sm bg-teal-700 text-white rounded-2xl hover:bg-teal-800">Edit / Load Data</button></div>`; document.getElementById('list-count').textContent = `0 properties`; return; }
             filteredProps.forEach(prop => { const card = document.createElement('div'); card.className = `property-card mx-2 mb-2 bg-white border border-slate-200 hover:border-slate-300 rounded-2xl p-3.5 cursor-pointer flex flex-col gap-y-1.5`; card.dataset.id = prop.id;
                 const statusClass = prop.status === 'Current' ? 'status-current' : prop.status === 'Delinquent' ? 'status-delinquent' : 'status-auction';
                 let auctionBadge = ''; if (prop.status === 'Auction' && prop.auction_date) { auctionBadge = `<span class="text-[9px] px-1.5 py-px bg-rose-100 text-rose-700 font-mono rounded">${prop.auction_date}</span>`; }
@@ -388,7 +388,7 @@ Enjoy exploring!`); }
         
         function showNearbyProperties(centerLat, centerLon) { const MAX_DISTANCE_MILES = 3.0; const nearby = properties.map(prop => { const dist = getDistance(centerLat, centerLon, prop.lat, prop.lng); return { ...prop, distance: dist }; }).filter(p => p.distance <= MAX_DISTANCE_MILES).sort((a, b) => a.distance - b.distance);
             if (nearby.length === 0) {
-                const container = document.getElementById('property-list'); container.innerHTML = `<div class="mx-3 mt-2 p-4 bg-amber-50 border border-amber-200 rounded-2xl text-sm"><div class="font-semibold text-amber-800 mb-1">Demo data is localized</div><div class="text-amber-700 text-xs leading-snug">Location search works <strong>nationwide</strong> (ZIP codes &amp; addresses).<br>The sample properties shown are only for the Syracuse / Onondaga County, NY area.<br><br><strong>To see properties in this area:</strong> Click "Edit Data" and replace the sample JSON with your local county's open parcel + tax data.</div></div>`; document.getElementById('list-count').textContent = `Search succeeded • Demo data is NY-only`; showToastNotification('Search successful — map centered. Demo properties are Syracuse-only.'); return;
+                const container = document.getElementById('property-list'); container.innerHTML = `<div class="mx-3 mt-2 p-4 bg-amber-50 border border-amber-200 rounded-2xl text-sm"><div class="font-semibold text-amber-800 mb-1">Demo data is localized</div><div class="text-amber-700 text-xs leading-snug">Location search works <strong>nationwide</strong> (ZIP codes &amp; addresses).<br>The sample properties shown are only for the Syracuse / Onondaga County, NY area.<br><br><strong>To see properties in this area:</strong> Click "Edit Data" and replace the sample JSON with your local county's open parcel + tax data.</div></div>`; document.getElementById('list-count').textContent = `Search succeeded • Demo data is NY-only`; showToastNotification('Search successful — map centered. Load data for this area.'); return;
             }
             const container = document.getElementById('property-list'); container.innerHTML = '';
             const header = document.createElement('div'); header.className = 'mx-3 mb-2 px-3 py-1.5 bg-teal-50 border border-teal-200 text-teal-700 text-xs rounded-2xl flex items-center justify-between'; header.innerHTML = `<span><strong>${nearby.length}</strong> properties within 3 miles • sorted by distance</span><button onclick="resetFilters(); renderPropertyList(properties); updateStats(properties);" class="text-teal-600 hover:text-teal-800 underline text-[10px]">Show all</button>`; container.appendChild(header);
