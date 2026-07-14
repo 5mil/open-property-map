@@ -70,6 +70,7 @@
                     </div>
                 </div>
                 <button onclick="searchLocation()" class="px-5 py-2 text-sm font-semibold rounded-2xl bg-teal-700 text-white hover:bg-teal-800 active:bg-teal-900 transition-colors shadow-sm flex items-center gap-x-1.5"><span>Go</span></button>
+                <button onclick="myLocation()" class="px-4 py-2 text-sm font-medium rounded-2xl border border-slate-300 hover:bg-slate-50 active:bg-slate-100 flex items-center gap-x-1">📍 My Location</button>
             </div>
             
             <div class="flex items-center gap-x-2">
@@ -355,11 +356,10 @@ Open source • MIT-style license • Fork it, improve it, share it.`); }
 • Search by address, parcel ID, or owner name.
 • "Fit All" button resets the map view to show every property.
 • Use the top search bar to go to any address or ZIP code (uses OpenStreetMap geocoding). Click the result marker for "Show nearby properties".
+• My Location button uses browser geolocation.
 • Edit Data: Modify or replace the JSON to load your own properties (live updates).
 • Export JSON: Download the current dataset for backup or further processing.
 • Google Maps button in details modal opens the location in a new tab.
-
-This demo uses fictional but realistic data centered on East Syracuse / Onondaga County, NY.
 
 The map requires an internet connection for OpenStreetMap tiles. All other functionality works offline once loaded.
 
@@ -370,6 +370,34 @@ Enjoy exploring!`); }
         function getDistance(lat1, lon1, lat2, lon2) { const R = 3958.8; const dLat = (lat2 - lat1) * Math.PI / 180; const dLon = (lon2 - lon1) * Math.PI / 180; const a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLon/2) * Math.sin(dLon/2); const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); return R * c; }
         
         function clearSearchMarker() { if (searchMarker && map.hasLayer(searchMarker)) map.removeLayer(searchMarker); searchMarker = null; }
+        
+        function myLocation() {
+            if (!navigator.geolocation) {
+                showToastNotification('Geolocation not supported in this browser.');
+                return;
+            }
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+                    map.flyTo([lat, lon], 13, { duration: 0.8 });
+                    clearSearchMarker();
+                    const iconHtml = `<div style="background:#22c55e; color:white; width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 6px -1px rgb(0 0 0 / 0.2); border:3px solid white;">📍</div>`;
+                    const customIcon = L.divIcon({ className: 'my-location-marker', html: iconHtml, iconSize: [32, 32], iconAnchor: [16, 16] });
+                    searchMarker = L.marker([lat, lon], { icon: customIcon }).addTo(map);
+                    searchMarker.bindPopup('<div class="font-medium text-center">📍 You are here</div>').openPopup();
+                    showToastNotification('Centered on your current location');
+                    showNearbyProperties(lat, lon);
+                },
+                (error) => {
+                    let msg = 'Unable to get your location.';
+                    if (error.code === 1) msg += ' Permission denied.';
+                    else if (error.code === 2) msg += ' Position unavailable.';
+                    else if (error.code === 3) msg += ' Timeout.';
+                    showToastNotification(msg);
+                }
+            );
+        }
         
         async function searchLocation() { const input = document.getElementById('location-search-input'); if (!input) return; const query = input.value.trim(); if (!query) { showToastNotification('Please enter an address or ZIP code'); return; } clearSearchMarker();
             try { const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=1&addressdetails=1`;
