@@ -58,10 +58,10 @@
                 </div>
             </div>
             
-            <!-- Location / Address / ZIP Search -->
-            <div class="flex-1 max-w-md mx-4 hidden md:flex items-center gap-x-2">
+            <!-- Location / Address / ZIP Search (nationwide) -->
+            <div class="flex-1 max-w-md mx-2 md:mx-4 flex items-center gap-x-2">
                 <div class="relative flex-1">
-                    <input id="location-search-input" type="text" placeholder="Search address or ZIP code (e.g. 13057 or 123 Main St)" class="w-full bg-white border border-slate-300 focus:border-teal-500 focus:ring-1 focus:ring-teal-500/30 transition-all placeholder:text-slate-400 text-sm rounded-3xl pl-9 pr-4 py-2 outline-none" onkeydown="if (event.key === 'Enter') searchLocation()">
+                    <input id="location-search-input" type="text" placeholder="Search address or ZIP anywhere (e.g. 90210, Chicago, 10001, or 13057)" class="w-full bg-white border border-slate-300 focus:border-teal-500 focus:ring-1 focus:ring-teal-500/30 transition-all placeholder:text-slate-400 text-sm rounded-3xl pl-9 pr-4 py-2 outline-none" onkeydown="if (event.key === 'Enter') searchLocation()">
                     <div class="absolute left-3.5 top-2.5 text-slate-400">
                         <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.25" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314-11.314z" />
@@ -180,7 +180,7 @@
                 <div class="flex items-center gap-x-1.5"><div class="w-2.5 h-2.5 rounded-full bg-amber-500"></div><span class="font-medium text-amber-700 text-[10px]">Delinquent</span></div>
                 <div class="flex items-center gap-x-1.5"><div class="w-2.5 h-2.5 rounded-full bg-rose-500"></div><span class="font-medium text-rose-700 text-[10px]">Auction</span></div>
             </div>
-            <div class="absolute bottom-4 right-4 z-[450] bg-white/90 text-[10px] px-3 py-1.5 rounded-2xl border border-slate-200 shadow-sm map-overlay flex items-center gap-x-2"><span class="font-mono text-slate-500">Demo data • Onondaga County, NY</span></div>
+            <div class="absolute bottom-4 right-4 z-[450] bg-white/90 text-[10px] px-3 py-1.5 rounded-2xl border border-slate-200 shadow-sm map-overlay flex items-center gap-x-2"><span class="font-mono text-slate-500">Demo data • Onondaga County, NY • Location search: nationwide</span></div>
         </div>
     </div>
 
@@ -387,7 +387,9 @@ Enjoy exploring!`); }
             } catch (err) { console.error(err); showToastNotification('Could not search location. Check your internet connection or try a different query.'); } }
         
         function showNearbyProperties(centerLat, centerLon) { const MAX_DISTANCE_MILES = 3.0; const nearby = properties.map(prop => { const dist = getDistance(centerLat, centerLon, prop.lat, prop.lng); return { ...prop, distance: dist }; }).filter(p => p.distance <= MAX_DISTANCE_MILES).sort((a, b) => a.distance - b.distance);
-            if (nearby.length === 0) { showToastNotification('No properties within 3 miles of this location.'); return; }
+            if (nearby.length === 0) {
+                const container = document.getElementById('property-list'); container.innerHTML = `<div class="mx-3 mt-2 p-4 bg-amber-50 border border-amber-200 rounded-2xl text-sm"><div class="font-semibold text-amber-800 mb-1">Demo data is localized</div><div class="text-amber-700 text-xs leading-snug">Location search works <strong>nationwide</strong> (ZIP codes &amp; addresses).<br>The sample properties shown are only for the Syracuse / Onondaga County, NY area.<br><br><strong>To see properties in this area:</strong> Click "Edit Data" and replace the sample JSON with your local county's open parcel + tax data.</div></div>`; document.getElementById('list-count').textContent = `Search succeeded • Demo data is NY-only`; showToastNotification('Search successful — map centered. Demo properties are Syracuse-only.'); return;
+            }
             const container = document.getElementById('property-list'); container.innerHTML = '';
             const header = document.createElement('div'); header.className = 'mx-3 mb-2 px-3 py-1.5 bg-teal-50 border border-teal-200 text-teal-700 text-xs rounded-2xl flex items-center justify-between'; header.innerHTML = `<span><strong>${nearby.length}</strong> properties within 3 miles • sorted by distance</span><button onclick="resetFilters(); renderPropertyList(properties); updateStats(properties);" class="text-teal-600 hover:text-teal-800 underline text-[10px]">Show all</button>`; container.appendChild(header);
             nearby.forEach(prop => { const card = document.createElement('div'); card.className = `property-card mx-2 mb-2 bg-white border border-slate-200 hover:border-teal-400 rounded-2xl p-3.5 cursor-pointer flex flex-col gap-y-1.5`; card.dataset.id = prop.id;
